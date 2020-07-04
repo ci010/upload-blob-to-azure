@@ -1,0 +1,19 @@
+name: 'Upload Blob to Azure'
+description: 'Upload file to azure storage as blob'
+author: 'ci010'
+inputs:
+  account:
+    description: 'The azure storage account name'
+    required: true
+  container:
+    description: 'The container in provided azure storage'
+    required: true
+  directory:
+    description: 'The directory to upload. It will list file in this diectionary and upload to azure storage blob'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'tag'
+  color: 'gray-dark'
