@@ -2,13 +2,13 @@ import * as Azure from '@azure/storage-blob';
 import { stat, readdir, createReadStream } from "fs";
 import { promisify } from 'util';
 import { join } from 'path';
-import core from '@actions/core';
+import { getInput, setFailed, info } from '@actions/core';
 
 async function run() {
     try {
-        const account = core.getInput('account', { required: true });
-        const container = core.getInput('container', { required: true });
-        const dir = core.getInput('directory', { required: true });
+        const account = getInput('account', { required: true });
+        const container = getInput('container', { required: true });
+        const dir = getInput('directory', { required: true });
 
         const accountKey = process.env.AZURE_ACCOUNT_KEY;
         const token = process.env.AZURE_STORAGE_TOKEN;
@@ -16,13 +16,13 @@ async function run() {
         let credit: Azure.Credential;
         if (typeof accountKey === 'string') {
             credit = new Azure.SharedKeyCredential(account, accountKey);
-            core.info('Found and use SharedKeyCredential (accountKey)');
+            info('Found and use SharedKeyCredential (accountKey)');
         } else if (typeof token === 'string') {
             credit = new Azure.TokenCredential(token);
-            core.info('Found and use TokenCredential');
+            info('Found and use TokenCredential');
         } else {
             credit = new Azure.AnonymousCredential();
-            core.info('Not found any credential. Use AnonymousCredential. If you want assign credential, please assign env variable AZURE_ACCOUNT_KEY (your storage account key) or AZURE_STORAGE_TOKEN (your storage token)');
+            info('Not found any credential. Use AnonymousCredential. If you want assign credential, please assign env variable AZURE_ACCOUNT_KEY (your storage account key) or AZURE_STORAGE_TOKEN (your storage token)');
         }
         const pipeline = Azure.StorageURL.newPipeline(credit);
         const s = promisify(stat);
@@ -45,14 +45,14 @@ async function run() {
                 options.blobHTTPHeaders!.blobContentType = 'text/x-yaml';
             }
             const blobURL = new Azure.BlockBlobURL(`https://${account}.blob.core.windows.net/${container}/${fileName}`, pipeline);
-            core.info(`Upload ${fileName}`);
+            info(`Upload ${fileName}`);
             await blobURL.upload(Azure.Aborter.none,
                 () => createReadStream(filePath),
                 fileStat.size,
                 options);
         }));
     } catch (error) {
-        core.setFailed(error.message);
+        setFailed(error.message);
     }
 }
 

@@ -5,21 +5,21 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "@azure/storage-blob": "^10.3.0"
+    "@azure/storage-blob": "^10.3.0",
+    "@actions/core": "^1.0.0"
   },
   "deprecated": false,
   "description": "Github action to upload blob to azure storage",
   "devDependencies": {
+    "@zeit/ncc": "^0.20.4",
     "@types/node": "^12.6.8",
-    "@actions/core": "^1.0.0",
     "typescript": "^3.5.3"
   },
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "name": "upload-blob-to-azure",
   "scripts": {
-    "build": "tsc"
+    "build": "ncc build src/index.ts"
   },
-  "types": "index.d.ts",
-  "version": "0.0.6"
+  "version": "0.0.1"
 }
