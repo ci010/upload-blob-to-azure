@@ -6,7 +6,7 @@
   "bundleDependencies": false,
   "dependencies": {
     "@azure/storage-blob": "^10.3.0",
-    "@actions/core": "^1.0.0"
+    "@actions/core": "^1.2.6"
   },
   "deprecated": false,
   "description": "Github action to upload blob to azure storage",
