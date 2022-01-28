@@ -19,7 +19,7 @@
   "main": "dist/index.js",
   "name": "upload-blob-to-azure",
   "scripts": {
-    "build": "esbuild --bundle --platform=node --target=es2020 --outdir=dist --format=cjs --keep-names --minify src/index.ts"
+    "build": "esbuild --bundle --platform=node --target=es2020 --outdir=dist --format=cjs --keep-names src/index.ts"
   },
   "version": "0.0.2"
 }
