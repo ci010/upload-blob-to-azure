@@ -4,6 +4,7 @@ import { createReadStream, readdir, stat } from "fs";
 import { join } from 'path';
 import { promisify } from 'util';
 
+
 async function run() {
     try {
         const account = getInput('account', { required: true });
@@ -34,7 +35,7 @@ async function run() {
 
             const options: BlockBlobUploadOptions = {
                 blobHTTPHeaders: {
-                }
+                },
             };
             if (fileName.endsWith("yml")) { // if the file is the yml file use yml format
                 options.blobHTTPHeaders!.blobContentType = 'text/x-yaml';
@@ -47,6 +48,7 @@ async function run() {
                 options);
         }));
     } catch (error) {
+        console.error(error)
         setFailed(error.message);
     }
 }
