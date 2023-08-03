@@ -5,7 +5,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "@actions/core": "^1.6.0",
+    "@actions/core": "^1.9.1",
     "@azure/storage-blob": "^12.8.0"
   },
   "deprecated": false,
