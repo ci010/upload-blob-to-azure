@@ -9,10 +9,10 @@ inputs:
     description: 'The container in provided azure storage'
     required: true
   directory:
-    description: 'The directory to upload. It will list file in this diectionary and upload to azure storage blob'
+    description: 'The directory to upload. It will list file recursively in this diectionary and upload to azure storage blob'
     required: true
 runs:
-  using: 'node12'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'tag'
