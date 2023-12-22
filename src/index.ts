@@ -2,7 +2,7 @@ import { getInput, info, setFailed } from '@actions/core';
 import { AnonymousCredential, BlockBlobClient, BlockBlobUploadOptions, StorageSharedKeyCredential } from '@azure/storage-blob';
 import { createReadStream } from 'fs';
 import { readdir, stat } from "fs/promises";
-import { join } from 'path';
+import { join, relative } from 'path';
 
 async function readdirRecursive(dir: string): Promise<string[]> {
   const files = await readdir(dir);
@@ -40,7 +40,7 @@ async function run() {
     const files = await readdirRecursive(dir);
 
     await Promise.all(files.map(async (filePath) => {
-      let relativePath = filePath.substring(dir.length).replaceAll('\\', '/');
+      let relativePath = relative(dir, filePath).replaceAll('\\', '/');
       if (relativePath.startsWith('/')) {
         relativePath = relativePath.substring(1);
       }

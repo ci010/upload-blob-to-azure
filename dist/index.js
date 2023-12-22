@@ -78197,7 +78197,7 @@ async function run() {
     }
     const files = await readdirRecursive(dir);
     await Promise.all(files.map(async (filePath) => {
-      let relativePath = filePath.substring(dir.length).replaceAll("\\", "/");
+      let relativePath = (0, import_path.relative)(dir, filePath).replaceAll("\\", "/");
       if (relativePath.startsWith("/")) {
         relativePath = relativePath.substring(1);
       }
